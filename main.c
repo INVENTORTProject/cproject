@@ -1,45 +1,105 @@
-int count(int barcode){
-    int i=0,c=0,j=0,p=0,k=0,t=0;
-    if(barcode==333)
-    {
-        while(dresses[i] != '\0')
-        {
-            c++;
-            i++;
-        }
-        return c;
-    }
-    else if(barcode==444)
-    {
-        while(pants[j]!='\0')
-        {
-            p++;
-            j++;
-        }
-        return p;
-    }
-    else
-    {
-        while(TS[k]!='\0')
-        {
-            t++;
-            k++;
-        }
-        return t;
-    }
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#define SHOP_CAP 150
 
+char dresses[SHOP_CAP] = {'i','i','i','i','i','i','i','i','i','i'};
+char pants[SHOP_CAP] = {'i','i','i','i','i','i','i','i'};
+char TS[SHOP_CAP] = {'i','i','i','i','i'};
+int topd=9;
+int topp=7;
+int topt=4;
+int bought_d=0, bought_p=0, bought_t=0, sold_d=0, sold_p=0, sold_t=0;
+const int initiald=10, initialp=8, initialt=5;
+
+
+
+void pop(int barcode){
+
+           if(barcode==333)
+        {
+            if(topd == -1)
+            {
+                puts("The dresses store is empty!");
+            }
+            else
+            {
+                dresses[topd]= NULL;
+                sold_d++;
+                topd--;
+            }
+        }
+        else if(barcode==444)
+        {
+            if(topp == -1)
+            {
+                puts("The pants store is empty!");
+            }
+            else
+            {
+                pants[topp]=NULL;
+                sold_p++;
+                topp--;
+            }
+        }
+        else
+        {
+            if(topt == -1)
+            {
+                puts("The T-shirts store is empty!");
+            }
+            else
+            {
+                TS[topt]=NULL;
+                sold_t++;
+                topt--;
+            }
+        }
 }
- void inventory(){
 
 
-   FILE *fp = fopen("inventory.txt", "w");
-   fprintf(fp,"\t Dresses \t Pants \t T-shirts \n\n");
-   fprintf(fp,"Buy \t %d \t\t %d \t %d \t \n\n" , bought_d , bought_p , bought_t);
-   fprintf(fp,"Sell \t %d \t\t %d \t %d \t \n\n" , sold_d , sold_p , sold_t);
-   fprintf(fp,"Remain \t %d \t\t %d \t %d \t \n\n" , count(333) , count(444) , count(555));
-   fclose(fp);
+void sell(int n,int barcode){
 
-
-
-
+         if(count(barcode)==0)
+         {
+             if(barcode==333)
+             {
+                puts("The dresses store is empty!");
+             }
+             else if(barcode==444)
+             {
+                 puts("The pants store is empty!");
+             }
+             else
+             {
+                 puts("The t-shirts store is empty!");
+             }
+         }
+         else
+         {
+            int const c = count(barcode);
+            for(int i=1; i<=n; i++)
+            {
+                pop(barcode);
+                if(count(barcode)==0)
+                {
+                    break;
+                }
+            }
+            if(n>c)
+            {
+               if(barcode==333)
+               {
+                    printf("The dresses store is empty! \n you have %d orders that haven't been sold. \n ", n-c);
+               }
+               else if(barcode==444)
+               {
+                    printf("The pants store is empty! \n you have %d orders that haven't been sold. \n ", n-c);
+               }
+               else
+               {
+                    printf("The t-shirts store is empty! \n you have %d orders that haven't been sold. \n ", n-c);
+               }
+            }
+        }
 }
