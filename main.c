@@ -1,116 +1,45 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-char dresses[SHOP_CAP] = {'i','i','i','i','i','i','i','i','i','i'};
-char pants[SHOP_CAP] = {'i','i','i','i','i','i','i','i'};
-char TS[SHOP_CAP] = {'i','i','i','i','i'};
-int topd=9;
-int topp=7;
-int topt=4;
-int bought_d=0, bought_p=0, bought_t=0, sold_d=0, sold_p=0, sold_t=0;
-
-void push(int barcode){
+int count(int barcode){
+    int i=0,c=0,j=0,p=0,k=0,t=0;
     if(barcode==333)
     {
-          if(topd == SHOP_CAP-1)
-          {
-             puts("The dresses store is full!");
-          }
-          else
-          {
-             topd++;
-             dresses[topd]='i';
-             bought_d++;
-           }
+        while(dresses[i] != '\0')
+        {
+            c++;
+            i++;
+        }
+        return c;
     }
     else if(barcode==444)
     {
-        if(topp == SHOP_CAP-1)
-          {
-             puts("The pants store is full!");
-          }
-          else
-          {
-             topp++;
-             pants[topp]='i';
-             bought_p++;
-          }
+        while(pants[j]!='\0')
+        {
+            p++;
+            j++;
+        }
+        return p;
     }
     else
     {
-      if(topt == SHOP_CAP-1)
-          {
-             puts("The T-shirts store is full!");
-          }
-          else
-          {
-              topt++;
-              TS[topt]='i';
-              bought_t++;
-          }
-    }
-}
-
-
-void buy(int n,int barcode){
-
-    const int remain= SHOP_CAP - count(barcode);
-    int r= remain;
-    if(r>0){
-        for(int i=1; i<=n; i++)
+        while(TS[k]!='\0')
         {
-            push(barcode);
-            r--;
-            if(r==0)
-            {
-                break;
-            }
+            t++;
+            k++;
         }
-        if(n>remain)
-        {
-           if(barcode==333)
-           {
-                printf("The dresses store is full! \n Now you have %d dresses \n %d are excess\n", count(barcode),n-remain);
-           }
-           else if(barcode==444)
-           {
-                printf("The pants store is full! \n Now you have %d pants \n %d are excess\n", count(barcode),n-remain);
-           }
-           else
-           {
-                printf("The T-shirts store is full! \n Now you have %d T-shirts \n %d are excess\n", count(barcode),n-remain);
-           }
-        }
-    } else{
-        if(barcode==333)
-             {
-                puts("The dresses store is full!");
-             }
-             else if(barcode==444)
-             {
-                 puts("The pants store is full!");
-             }
-             else
-             {
-                 puts("The t-shirts store is full!");
-             }
+        return t;
     }
+
 }
-//read the file
-void print(){
+ void inventory(){
 
-        int k;
-   FILE *fp = fopen("inventory.txt","r");
 
-      while((k=fgetc(fp))!=EOF){
-        printf("%c",k);
-      }
-    printf("\n");
+   FILE *fp = fopen("inventory.txt", "w");
+   fprintf(fp,"\t Dresses \t Pants \t T-shirts \n\n");
+   fprintf(fp,"Buy \t %d \t\t %d \t %d \t \n\n" , bought_d , bought_p , bought_t);
+   fprintf(fp,"Sell \t %d \t\t %d \t %d \t \n\n" , sold_d , sold_p , sold_t);
+   fprintf(fp,"Remain \t %d \t\t %d \t %d \t \n\n" , count(333) , count(444) , count(555));
+   fclose(fp);
 
-       if(fp==NULL){
-        printf("this file is not opened");
-       }
-     fclose(fp);
+
 
 
 }
