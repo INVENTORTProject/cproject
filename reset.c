@@ -10,7 +10,7 @@ int topd=9;
 int topp=7;
 int topt=4;
 int bought_d=0, bought_p=0, bought_t=0, sold_d=0, sold_p=0, sold_t=0;
-const initiald=10, initialp=8, iintialt=5;
+const initiald=10, initialp=8, initialt=5;
 void reset(){
     if(count(333)>initiald)
     {
