@@ -10,8 +10,9 @@ int main()
          printf("Please enter 1 to buy \n:  ");
          printf("Please enter 2 to sell \n:  ");
          printf("Please enter 3 to print data \n:  ");
-          printf("Please enter 4 to exit \n:  ");
-          printf("******** \n:  ");
+         printf("Please enter 4 to reset the data \n:  ");
+         printf("Please enter 5 to exit \n:  ");
+         printf("******** \n:  ");
 
 
     scanf("%d",&y);
@@ -93,16 +94,22 @@ int main()
         }
         case 4:
         {
+            reset();
+            inventory();
+            break;
+        }
+        case 5:
+        {
           exit(0);
         }
         default:
         {
-          printf("Choose One of the Four options");
+          printf("Choose One of the Five options");
           break;
         }
      }
       }while(1);
-
+return 0;
 
 }
 
